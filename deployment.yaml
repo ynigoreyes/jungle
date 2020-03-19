@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: plants-deployment
+  labels:
+    app: plants
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: plants
+  template:
+    metadata:
+      labels:
+        app: plants
+    spec:
+      containers:
+      - name: plants
+        image: jungle/plants-service:latest
+        ports:
+        - containerPort: 9092
+        imagePullPolicy: Never
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: animals-deployment
+  labels:
+    app: animals
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: animals
+  template:
+    metadata:
+      labels:
+        app: animals
+    spec:
+      containers:
+      - name: animals
+        image: jungle/animals-service:latest
+        ports:
+        - containerPort: 9092
+        imagePullPolicy: Never
